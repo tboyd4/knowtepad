@@ -31,6 +31,10 @@ app.get("/api/notes", (req, res) => {
     newJson = req.body;
     dbArray.push(newJson);
     res.json(newJson);
+    fs.writeFileSync('./db/db.json', JSON.stringify(dbArray), (err) => {
+      if (err) throw err;
+      console.log("Write Status: Success")
+    })
     res.end();
   });
 
