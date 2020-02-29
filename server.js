@@ -37,6 +37,10 @@ app.post("/api/notes", (req, res) => {
   res.end();
 });
 
+app.delete('/api/notes/:id', function (req, res) {
+  res.send('Got a DELETE request for id ' + req.params.id);
+})
+
 app.listen(PORT, () => {
   console.log("Successfully listening on port : " + PORT);
 });
