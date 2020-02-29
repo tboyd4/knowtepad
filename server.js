@@ -3,8 +3,14 @@ const path = require("path");
 const fs = require("fs");
 const bodyParser = require('body-parser');
 
+const dbArray = require('./db/db.json');
+
+
 
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 const PORT = process.env.PORT || 5050;
@@ -22,7 +28,9 @@ app.get("/api/notes", (req, res) => {
   });
 
   app.post("/api/notes", (req, res) => {
-    res.write(req.body);
+    newJson = req.body;
+    dbArray.push(newJson);
+    res.json(newJson);
     res.end();
   });
 
