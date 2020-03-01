@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 
-const dbArray = require('./db/db.json');
+let dbArray = require('./db/db.json');
 
 
 
@@ -39,6 +39,22 @@ app.post("/api/notes", (req, res) => {
 
 app.delete('/api/notes/:id', function (req, res) {
   res.send('Got a DELETE request for id ' + req.params.id);
+  
+  let tempArray = [];
+
+  dbArray.map(e => {
+    if (e.id != req.params.id) {
+      tempArray.push(e)
+    }
+  })
+
+  dbArray = tempArray;
+
+  fs.writeFileSync('./db/db.json', JSON.stringify(dbArray), (err) => {
+    if (err) throw err;
+    console.log("Write Status: Success")
+  })
+  res.end();
 })
 
 app.listen(PORT, () => {
