@@ -30,6 +30,7 @@ app.get("/api/notes", (req, res) => {
 
 app.post("/api/notes", (req, res) => {
   newJson = req.body;
+  newJson.id = Math.floor(Math.random() * 1000000000000);
   dbArray.push(newJson);
   res.json(newJson);
   fs.writeFileSync('./db/db.json', JSON.stringify(dbArray), (err) => {
